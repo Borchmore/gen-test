@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="LevelTutorial" />
+		<Option makefile="C:/Users/Borchmore/Downloads/GameDev/ConsoleSDKs/SGDK131/makefile.gen" />
+		<Option makefile_is_custom="1" />
+		<Option pch_mode="2" />
+		<Option compiler="sega_genesis_compiler" />
+		<Option virtualFolders="Sources\;Headers\;Resources\;Others\;" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/LevelTutorial" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="sega_genesis_compiler" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="default">
+				<Option output="bin/Release/LevelTutorial" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="sega_genesis_compiler" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="LevelTutorial.layout" />
+		<Unit filename="out/res/gfx.o" />
+		<Unit filename="out/res/sound.o" />
+		<Unit filename="out/res/sprite.o" />
+		<Unit filename="out/rom.bin" />
+		<Unit filename="out/rom.out" />
+		<Unit filename="out/rom_head.bin" />
+		<Unit filename="out/rom_head.o" />
+		<Unit filename="out/sega.o" />
+		<Unit filename="out/src/main.o" />
+		<Unit filename="out/symbol.txt" />
+		<Unit filename="res/gfx.h" />
+		<Unit filename="res/gfx.res" />
+		<Unit filename="res/gfx/bga.png" />
+		<Unit filename="res/gfx/bgb.png" />
+		<Unit filename="res/music/sonic1.vgm" />
+		<Unit filename="res/sfx/S1_die.wav" />
+		<Unit filename="res/sfx/S1_explode1.wav" />
+		<Unit filename="res/sfx/S1_explode2.wav" />
+		<Unit filename="res/sfx/S1_explode3.wav" />
+		<Unit filename="res/sfx/S1_jump.wav" />
+		<Unit filename="res/sfx/S1_jumper.wav" />
+		<Unit filename="res/sfx/S1_ring1.wav" />
+		<Unit filename="res/sfx/S1_ring2.wav" />
+		<Unit filename="res/sfx/S1_ringlost.wav" />
+		<Unit filename="res/sfx/S1_roll.wav" />
+		<Unit filename="res/sfx/S1_spinning.wav" />
+		<Unit filename="res/sfx/S1_stop.wav" />
+		<Unit filename="res/sound.h" />
+		<Unit filename="res/sound.res" />
+		<Unit filename="res/sprite.h" />
+		<Unit filename="res/sprite.res" />
+		<Unit filename="res/sprite/ship.png" />
+		<Unit filename="src/boot/rom_head.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/boot/sega.s" />
+		<Unit filename="src/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
