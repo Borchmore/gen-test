@@ -17,17 +17,17 @@
 #define ANIM_CROUNCH    6
 #define ANIM_ROLL       7
 
-#define MAX_SPEED       FIX32(6)
-#define BRAKE_SPEED     FIX32(2)
+#define MAX_SPEED       FIX16(6)
+#define BRAKE_SPEED     FIX16(2)
 
-#define MAX_SPRITES     FIX32(80)
+#define MAX_SPRITES     FIX16(80)
 
-#define ACCEL           FIX32(1)
+#define ACCEL           FIX16(1)
 
-#define MIN_POSX        FIX32(0)
-#define MAX_POSX        FIX32(288)
-#define MIN_POSY        FIX32(0)
-#define MAX_POSY        FIX32(208)
+#define MIN_POSX        FIX16(0)
+#define MAX_POSX        FIX16(288)
+#define MIN_POSY        FIX16(0)
+#define MAX_POSY        FIX16(208)
 
 
 // forward
@@ -38,20 +38,29 @@ static void shotAction();
 static void bgAction();
 
 // sprites structure (pointer of Sprite)
-Sprite* sprites[80];
+Sprite* ship;
+Sprite* shots[24];
+Sprite* enemies[35];
+Sprite* other[20];
 
-fix32 posx = FIX32(160);
-fix32 posy = FIX32(120);
-fix32 bgaScroll;
-fix32 bgbScroll;
-fix32 vSpeedShip;
-fix32 hSpeedShip;
+fix16 posx;
+fix16 posy;
+s16 shotPosx[24];
+s16 shotPosy[24];
+s16 bgaScroll;
+s16 bgbScroll;
+fix16 vSpeedShip;
+fix16 hSpeedShip;
+u8 lockout;
+u8 bPress;
 
-int main()
-{
+int main(){
+
     u16 palette[64];
     u16 ind;
-
+    posx = FIX16(160);
+    posy = FIX16(112);
+    bPress = 0;
     // disable interrupt when accessing VDP
     SYS_disableInts();
     // initialization
@@ -74,16 +83,14 @@ int main()
     ind = TILE_USERINDEX;
     VDP_drawImageEx(PLAN_B, &bgb_image, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);
     ind += bgb_image.tileset->numTile;
-    VDP_drawImageEx(PLAN_A, &bga_image, TILE_ATTR_FULL(PAL1, FALSE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);
+    VDP_drawImageEx(PLAN_A, &bga_image, TILE_ATTR_FULL(PAL1, TRUE, FALSE, FALSE, ind), 0, 0, FALSE, TRUE);
     ind += bga_image.tileset->numTile;
-
-
 
     // VDP process done, we can re enable interrupts
     SYS_enableInts();
 
     // init ship sprite
-    sprites[0] = SPR_addSprite(&ship_sprite, fix32ToInt(posx), fix32ToInt(posy), TILE_ATTR(PAL2, TRUE, FALSE, FALSE));
+    ship = SPR_addSprite(&ship_sprite, fix16ToInt(posx), fix16ToInt(posy), TILE_ATTR(PAL2, FALSE, FALSE, FALSE));
     SPR_update();
 
     // prepare palettes
@@ -96,14 +103,13 @@ int main()
     // fade in
     VDP_fadeIn(0, (4 * 16) - 1, palette, 20, FALSE);
 
-    while(TRUE)
-    {
+    while(TRUE){
+
         handleInput();
 
         shipAction();
-        //shotAction();
+        shotAction();
         bgAction();
-        //camAction();
 
         // update sprites
         SPR_update();
@@ -115,6 +121,7 @@ int main()
 }
 
 static void handleInput(){
+
 }
 
 static void shipAction(){
@@ -187,7 +194,7 @@ static void shipAction(){
         vSpeedShip = 0;
     }
 
-    SPR_setPosition(sprites[0], fix32ToInt(posx), fix32ToInt(posy));
+    SPR_setPosition(ship, fix16ToInt(posx), fix16ToInt(posy));
 
 }
 
@@ -198,5 +205,45 @@ static void bgAction(){
 
     VDP_setHorizontalScroll(PLAN_A, bgaScroll);
     VDP_setHorizontalScroll(PLAN_B, bgbScroll);
+
+}
+
+static void shotAction(){
+
+    u8 i = 0;
+
+    if(lockout == 0){
+        if((JOY_readJoypad(JOY_1)) & (BUTTON_B)){
+            while(i < 24){
+                if(shots[i] == NULL){
+                    shots[i] = SPR_addSprite(&shot_sprite, fix16ToInt(posx) + 24, fix16ToInt(posy) + 4, TILE_ATTR(PAL2, TRUE, FALSE, FALSE));
+                    shotPosx[i] = fix16ToInt(posx) + 24;
+                    shotPosy[i] = fix16ToInt(posy) + 4;
+                    lockout = 19;
+                    i = 24;
+                }
+                i++;
+            }
+        }
+    }
+    else{
+        lockout--;
+    }
+
+    i = 0;
+
+    while(i < 24){
+        if (shots[i] != NULL){
+            if(shotPosx[i] > 320){
+                SPR_releaseSprite(shots[i]);
+                shots[i] = NULL;
+            }
+            else{
+                shotPosx[i] = shotPosx[i] + 8;
+                SPR_setPosition(shots[i], shotPosx[i], shotPosy[i]);
+            }
+        }
+        i++;
+    }
 
 }

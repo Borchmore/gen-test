@@ -2,5 +2,6 @@
 #define _RES_SPRITE_H_
 
 extern const SpriteDefinition ship_sprite;
+extern const SpriteDefinition shot_sprite;
 
 #endif // _RES_SPRITE_H_
