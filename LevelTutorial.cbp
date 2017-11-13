@@ -67,6 +67,7 @@
 		<Unit filename="res/sprite.h" />
 		<Unit filename="res/sprite.res" />
 		<Unit filename="res/sprite/ship.png" />
+		<Unit filename="res/sprite/shot.png" />
 		<Unit filename="src/boot/rom_head.c">
 			<Option compilerVar="CC" />
 		</Unit>
