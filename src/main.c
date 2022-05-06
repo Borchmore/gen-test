@@ -314,6 +314,8 @@ static void enemyAction(){
 
 static void otherAction(){}
 
+//alright I'm reading this now at 3:30 AM in 2022 and the code really seems to go off the rails here
+//maybe I'll finish this project?
 static void collisionAction(u16 sp1, u16 val1, u16 sp2){
 
     //the values in the header correspond to sprite types; 0 = ship, 1 = shot, 2 = enemy
@@ -325,7 +327,7 @@ static void collisionAction(u16 sp1, u16 val1, u16 sp2){
         if(sp2 == 2){
             while(i < 35){
                 if(((enemyPosX[i] >= shipPosX) && (enemyPosX[i] <= shipPosX +FIX16(32))) || ((shipPosX >= enemyPosX[i]) && (shipPosX <= enemyPosX[i] +FIX16(32)))){
-                    //Fuck me, that's a long ass if statement! Oh shit now we have to do it again!! (or make the above if statement even longer)
+                    //like what is happening here lol
                     if(((enemyPosY[i] >= shipPosY) && (enemyPosY[i] <= shipPosY +FIX16(16))) || ((shipPosY >= enemyPosY[i]) && (shipPosY <= enemyPosY[i] +FIX16(16)))){
                         shipHP = 0;
                         enemyHP[i] = 0;
@@ -343,7 +345,7 @@ static void collisionAction(u16 sp1, u16 val1, u16 sp2){
         if(sp2 == 2){
             while(i < 35){
                 if(((enemyPosX[i] >= shotPosX[val1]) && (enemyPosX[i] <= shotPosX[val1] +FIX16(16))) || ((shotPosX[val1] >= enemyPosX[i]) && (shotPosX[val1] <= enemyPosX[i] +FIX16(32)))){
-                    //Fuck me, that's a long ass if statement! Oh shit now we have to do it again!! (or make the above if statement even longer)
+                    //lmao I did it again
                     if(((enemyPosY[i] >= shotPosY[val1]) && (enemyPosY[i] <= shotPosY[val1] +FIX16(8))) || ((shotPosY[val1] >= enemyPosY[i]) && (shotPosY[val1] <= enemyPosY[i] +FIX16(16)))){
                         shotHP[val1] = 0;
                         enemyHP[i] = 0;
