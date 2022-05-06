@@ -5,4 +5,11 @@ This repo contains all the test code I've written for my Genesis game. The organ
 
 That said, I'm sure most of you just want to look at the ROM, which can be found in folder "out" titled rom.bin. Simply run it in your favorite Genesis emulator (I use Fusion) to see the magic.
 
-Find me on Twitter if you want to contact me or just check out my shitposts.
+
+
+
+
+
+
+
+...damn this should've been my senior project
